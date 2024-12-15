@@ -6,13 +6,23 @@ const getState = ({ getStore, getActions, setStore }) => {
             error: null,    // Almacena los mensajes de error
         },
         actions: {
-            // Función auxiliar para manejar peticiones y errores
             performFetch: async (url, options = {}) => {
                 try {
                     setStore({ loading: true, error: null }); // Inicia la carga
+            
                     const response = await fetch(url, options);
-                    if (!response.ok) throw new Error("Network response was not ok");
-                    return await response.json();
+            
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
+                    }
+            
+                    // Lee el cuerpo como texto para verificar si está vacío
+                    const text = await response.text();
+            
+                    // Convierte a JSON solo si el texto no está vacío
+                    const data = text ? JSON.parse(text) : null;
+            
+                    return data;
                 } catch (error) {
                     setStore({ error: error.message });
                     console.error("Fetch error:", error);
@@ -21,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     setStore({ loading: false }); // Termina la carga
                 }
             },
-
+            
             // Obtiende todos los contactos de la Api Death Note
             fetchContacts: async () => {
                 const data = await getActions().performFetch(
