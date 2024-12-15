@@ -5,19 +5,16 @@ import { Context } from "../store/appContext.js";
 const AddContact = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    const { id } = useParams(); // Se obtiene el ID desde la URL
+    const { id } = useParams();
 
-    // Estados para manejar los valores del formulario de contactos
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
     const [address, setAddress] = useState("");
 
-    // Guardar contacto
     const handleSaveContact = (e) => {
         e.preventDefault();
 
-        // Validar campos vacíos
         if (!name.trim() || !phone.trim() || !email.trim() || !address.trim()) {
             alert("Please fill in all fields");
             return;
@@ -25,31 +22,25 @@ const AddContact = () => {
 
         const payload = { name, phone, email, address };
 
-        // Crear o editar contacto según la presencia del ID de Death note
         if (!id) {
             actions.addContact(payload);
         } else {
             actions.updateContact(id, payload);
         }
 
-        // Mensaje de confirmación y navegación de la lista de de Death note
         alert("Contact saved successfully!");
         navigate("/");
 
-        // Limpiar los campos del formulario
         setName("");
         setPhone("");
         setEmail("");
         setAddress("");
     };
 
-    // Cargar datos del contacto si se edita la Death note
     useEffect(() => {
         if (id && store.contacts.length > 0) {
-            // Buscar el contacto actual basado en el ID
             const currentContact = store.contacts.find((contact) => contact.id == id);
     
-            // Verificar si el contacto fue encontrado antes de usarlo en la Death note
             if (currentContact) {
                 setName(currentContact.name);
                 setPhone(currentContact.phone);
@@ -58,7 +49,7 @@ const AddContact = () => {
             } else {
                 console.error("Contact not found");
                 alert("Contact not found. Please try again.");
-                navigate("/"); // Redirige al usuario si no encuentra el contacto en la Death note
+                navigate("/"); 
             }
         }
     }, [id, store.contacts]);

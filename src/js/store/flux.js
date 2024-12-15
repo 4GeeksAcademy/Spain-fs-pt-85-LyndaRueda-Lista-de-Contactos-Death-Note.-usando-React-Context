@@ -1,25 +1,22 @@
 const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
-            contacts: [], // Lista de contactos
-            loading: false, // Indicador de que estan cargando
-            error: null,    // Almacena los mensajes de error
+            contacts: [],
+            loading: false,
+            error: null,
         },
         actions: {
             performFetch: async (url, options = {}) => {
                 try {
-                    setStore({ loading: true, error: null }); // Inicia la carga
-            
+                    setStore({ loading: true, error: null });
                     const response = await fetch(url, options);
             
                     if (!response.ok) {
                         throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
                     }
             
-                    // Lee el cuerpo como texto para verificar si está vacío
                     const text = await response.text();
             
-                    // Convierte a JSON solo si el texto no está vacío
                     const data = text ? JSON.parse(text) : null;
             
                     return data;
@@ -28,19 +25,17 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error("Fetch error:", error);
                     return null;
                 } finally {
-                    setStore({ loading: false }); // Termina la carga
+                    setStore({ loading: false });
                 }
             },
             
-            // Obtiende todos los contactos de la Api Death Note
             fetchContacts: async () => {
                 const data = await getActions().performFetch(
                     "https://playground.4geeks.com/contact/agendas/Death%20Note"
                 );
-                if (data) setStore({ contacts: data.contacts }); // Extrae 'contacts' del objeto recibido
+                if (data) setStore({ contacts: data.contacts });
             },
 
-            // Crear un nuevo contacto
             addContact: async (contact) => {
                 const success = await getActions().performFetch(
                     "https://playground.4geeks.com/contact/agendas/Death%20Note/contacts",
@@ -53,7 +48,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 if (success) getActions().fetchContacts();
             },
 
-            // Actualizar un contacto
             updateContact: async (id, updatedContact) => {
                 const success = await getActions().performFetch(
                     `https://playground.4geeks.com/contact/agendas/Death%20Note/contacts/${id}`,
@@ -66,7 +60,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 if (success) getActions().fetchContacts();
             },
 
-            // Eliminar un contacto
             deleteContact: async (id) => {
                 const success = await getActions().performFetch(
                     `https://playground.4geeks.com/contact/agendas/Death%20Note/contacts/${id}`,

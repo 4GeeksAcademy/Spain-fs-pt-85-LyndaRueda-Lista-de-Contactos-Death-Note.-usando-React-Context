@@ -23,7 +23,6 @@ const CardContact = ({ contact }) => {
           />
         </div>
 
-        {/* Info del contacto */}
         <div className="col-md-7">
           <h5 className="mb-1">{contact.name}</h5>
           <p className="mb-1">
@@ -40,7 +39,6 @@ const CardContact = ({ contact }) => {
           </p>
         </div>
 
-        {/* Botones click */}
         <div className="col-md-3 d-flex justify-content-end">
           <Link
             to={`/editContact/${contact.id}`}
@@ -59,7 +57,7 @@ const CardContact = ({ contact }) => {
         </div>
       </div>
 
-      {/* Modal de confirmación para eliminar */}
+      {/* Modal eliminar */}
       <div
         className="modal fade"
         id={`delete-contact-${contact.id}`}

@@ -6,28 +6,24 @@ import CardContact from "../component/CardContact.jsx";
 const Contacts = () => {
     const { store, actions } = useContext(Context);
 
-    // Llamar a fetchContacts al montar el componente
     useEffect(() => {
         actions.fetchContacts();
     }, []);
 
     return (
         <div className="w-75 mx-auto">
-            {/* Botón para agregar un nuevo contacto */}
             <div className="d-flex justify-content-end my-3">
                 <Link to="/addContact">
                     <button className="btn btn-success">Add a New Contact For Your Death Note 💀</button>
                 </Link>
             </div>
 
-            {/* Mensaje de error */}
             {store.error && (
                 <div className="alert alert-danger text-center" role="alert">
                     {store.error}
                 </div>
             )}
 
-            {/* Indicador de carga */}
             {store.loading && (
                 <div className="text-center mt-3">
                     <div className="spinner-border text-primary" role="status">
@@ -37,7 +33,6 @@ const Contacts = () => {
                 </div>
             )}
 
-            {/* Lista de contactos */}
             <ul className="list-group mt-3">
                 {store.contacts.length > 0 ? (
                     store.contacts.map((contact) => (

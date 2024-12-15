@@ -5,15 +5,13 @@ import { Context } from "../store/appContext.js";
 const EditContact = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    const { id } = useParams(); // Obtener el ID del contacto desde la URL
+    const { id } = useParams();
 
-    // Estados para los campos del formulario
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
 
-    // Precargar los datos del contacto actual de la Death Note
     useEffect(() => {
         if (id && store.contacts.length > 0) {
             const currentContact = store.contacts.find((contact) => contact.id == id);
@@ -24,12 +22,11 @@ const EditContact = () => {
                 setAddress(currentContact.address);
             } else {
                 console.error("Contact not found");
-                navigate("/"); // Redirigir si no encuentra el contacto en la Death Note
+                navigate("/");
             }
         }
     }, [id, store.contacts, navigate]);
 
-    // Función para manejar la actualización del contacto de la Death Note
     const handleUpdate = () => {
         const updatedContact = {
             name,
@@ -40,7 +37,7 @@ const EditContact = () => {
 
         actions.updateContact(id, updatedContact);
         alert("Contact updated successfully!");
-        navigate("/"); // Redirigir a la página principal
+        navigate("/");
     };
 
     return (
