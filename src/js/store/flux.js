@@ -1,45 +1,71 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+    return {
+        store: {
+            contacts: [], // Lista de contactos
+            loading: false, // Indicador de carga
+            error: null,    // Almacena mensajes de error
+        },
+        actions: {
+            // Función auxiliar para manejar peticiones y errores
+            performFetch: async (url, options = {}) => {
+                try {
+                    setStore({ loading: true, error: null }); // Inicia la carga
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return await response.json();
+                } catch (error) {
+                    setStore({ error: error.message });
+                    console.error("Fetch error:", error);
+                    return null;
+                } finally {
+                    setStore({ loading: false }); // Termina la carga
+                }
+            },
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+            // Obtener todos los contactos
+            fetchContacts: async () => {
+                const data = await getActions().performFetch(
+                    "https://playground.4geeks.com/contact/agendas/Death%20Note"
+                );
+                if (data) setStore({ contacts: data.contacts }); // Extrae 'contacts' del objeto recibido
+            },
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
-		}
-	};
+            // Crear un nuevo contacto
+            addContact: async (contact) => {
+                const success = await getActions().performFetch(
+                    "https://playground.4geeks.com/contact/agendas/Death%20Note/contacts",
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(contact),
+                    }
+                );
+                if (success) getActions().fetchContacts();
+            },
+
+            // Actualizar un contacto
+            updateContact: async (id, updatedContact) => {
+                const success = await getActions().performFetch(
+                    `https://playground.4geeks.com/contact/agendas/Death%20Note/contacts/${id}`,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(updatedContact),
+                    }
+                );
+                if (success) getActions().fetchContacts();
+            },
+
+            // Eliminar un contacto
+            deleteContact: async (id) => {
+                const success = await getActions().performFetch(
+                    `https://playground.4geeks.com/contact/agendas/Death%20Note/contacts/${id}`,
+                    { method: "DELETE" }
+                );
+                if (success) getActions().fetchContacts();
+            },
+        },
+    };
 };
 
 export default getState;
