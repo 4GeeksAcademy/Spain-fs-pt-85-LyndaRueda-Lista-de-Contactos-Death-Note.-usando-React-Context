@@ -16,7 +16,7 @@ const Contacts = () => {
             {/* Botón para agregar un nuevo contacto */}
             <div className="d-flex justify-content-end my-3">
                 <Link to="/addContact">
-                    <button className="btn btn-success">Add New Contact</button>
+                    <button className="btn btn-success">Add a New Contact For Your Death Note 💀</button>
                 </Link>
             </div>
 
@@ -46,7 +46,7 @@ const Contacts = () => {
                 ) : (
                     !store.loading && (
                         <li className="list-group-item text-center">
-                            No contacts available. Add a new one!
+                            No contacts available. Add a new one 👿! 
                         </li>
                     )
                 )}

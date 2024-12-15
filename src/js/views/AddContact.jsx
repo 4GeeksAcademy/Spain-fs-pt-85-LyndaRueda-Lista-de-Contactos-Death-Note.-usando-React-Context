@@ -7,7 +7,7 @@ const AddContact = () => {
     const navigate = useNavigate();
     const { id } = useParams(); // Se obtiene el ID desde la URL
 
-    // Estados para manejar los valores del formulario
+    // Estados para manejar los valores del formulario de contactos
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [email, setEmail] = useState("");
@@ -25,14 +25,14 @@ const AddContact = () => {
 
         const payload = { name, phone, email, address };
 
-        // Crear o editar contacto según la presencia del ID
+        // Crear o editar contacto según la presencia del ID de Death note
         if (!id) {
             actions.addContact(payload);
         } else {
             actions.updateContact(id, payload);
         }
 
-        // Mensaje de confirmación y navegación
+        // Mensaje de confirmación y navegación de la lista de de Death note
         alert("Contact saved successfully!");
         navigate("/");
 
@@ -43,13 +43,13 @@ const AddContact = () => {
         setAddress("");
     };
 
-    // Cargar datos del contacto si se edita
+    // Cargar datos del contacto si se edita la Death note
     useEffect(() => {
         if (id && store.contacts.length > 0) {
             // Buscar el contacto actual basado en el ID
             const currentContact = store.contacts.find((contact) => contact.id == id);
     
-            // Verificar si el contacto fue encontrado antes de usarlo
+            // Verificar si el contacto fue encontrado antes de usarlo en la Death note
             if (currentContact) {
                 setName(currentContact.name);
                 setPhone(currentContact.phone);
@@ -58,7 +58,7 @@ const AddContact = () => {
             } else {
                 console.error("Contact not found");
                 alert("Contact not found. Please try again.");
-                navigate("/"); // Redirige al usuario si no encuentra el contacto
+                navigate("/"); // Redirige al usuario si no encuentra el contacto en la Death note
             }
         }
     }, [id, store.contacts]);
@@ -66,7 +66,7 @@ const AddContact = () => {
     return (
         <div className="container">
             <h1 className="text-center my-4">
-                {!id ? "Add a New Contact" : `Editing Contact: ${name}`}
+                {!id ? "Add a New Contact For Your Death ⚰️ " : `Editing Contact: ${name}`}
             </h1>
             <form className="container" onSubmit={handleSaveContact}>
                 <div className="mb-3">

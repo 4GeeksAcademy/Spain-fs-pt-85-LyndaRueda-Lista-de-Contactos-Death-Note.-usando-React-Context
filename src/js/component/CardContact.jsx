@@ -23,7 +23,7 @@ const CardContact = ({ contact }) => {
           />
         </div>
 
-        {/* Información del contacto */}
+        {/* Info del contacto */}
         <div className="col-md-7">
           <h5 className="mb-1">{contact.name}</h5>
           <p className="mb-1">
@@ -40,7 +40,7 @@ const CardContact = ({ contact }) => {
           </p>
         </div>
 
-        {/* Botones de acción */}
+        {/* Botones click */}
         <div className="col-md-3 d-flex justify-content-end">
           <Link
             to={`/editContact/${contact.id}`}
@@ -71,7 +71,7 @@ const CardContact = ({ contact }) => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Are you sure?
+                Are you sure 🤔?
               </h1>
               <button
                 type="button"
@@ -81,7 +81,7 @@ const CardContact = ({ contact }) => {
               ></button>
             </div>
             <div className="modal-body">
-              If you delete this thing the entire universe will go down!
+              If you delete this thing the entire universe will go down 🤯!
             </div>
             <div className="modal-footer">
               <button
@@ -89,7 +89,7 @@ const CardContact = ({ contact }) => {
                 className="btn btn-primary"
                 data-bs-dismiss="modal"
               >
-                Oh no!
+                Oh no 🙅🏻‍♀️!
               </button>
               <button
                 type="button"
@@ -97,7 +97,7 @@ const CardContact = ({ contact }) => {
                 data-bs-dismiss="modal"
                 onClick={eliminarContacto}
               >
-                Yes baby!
+                Yes baby 😏!
               </button>
             </div>
           </div>

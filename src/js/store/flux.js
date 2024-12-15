@@ -2,8 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
     return {
         store: {
             contacts: [], // Lista de contactos
-            loading: false, // Indicador de carga
-            error: null,    // Almacena mensajes de error
+            loading: false, // Indicador de que estan cargando
+            error: null,    // Almacena los mensajes de error
         },
         actions: {
             // Función auxiliar para manejar peticiones y errores
@@ -22,7 +22,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            // Obtener todos los contactos
+            // Obtiende todos los contactos de la Api Death Note
             fetchContacts: async () => {
                 const data = await getActions().performFetch(
                     "https://playground.4geeks.com/contact/agendas/Death%20Note"

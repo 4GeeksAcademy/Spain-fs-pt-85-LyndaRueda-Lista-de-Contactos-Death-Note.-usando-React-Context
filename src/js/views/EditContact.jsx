@@ -13,7 +13,7 @@ const EditContact = () => {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
 
-    // Precargar los datos del contacto actual
+    // Precargar los datos del contacto actual de la Death Note
     useEffect(() => {
         if (id && store.contacts.length > 0) {
             const currentContact = store.contacts.find((contact) => contact.id == id);
@@ -24,12 +24,12 @@ const EditContact = () => {
                 setAddress(currentContact.address);
             } else {
                 console.error("Contact not found");
-                navigate("/"); // Redirigir si no encuentra el contacto
+                navigate("/"); // Redirigir si no encuentra el contacto en la Death Note
             }
         }
     }, [id, store.contacts, navigate]);
 
-    // Función para manejar la actualización del contacto
+    // Función para manejar la actualización del contacto de la Death Note
     const handleUpdate = () => {
         const updatedContact = {
             name,

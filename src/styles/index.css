@@ -1,4 +1,4 @@
-/* Variables globales */
+/* variable General*/
 :root {
     --primary-color: #007bff;
     --primary-hover: #0056b3;
@@ -24,7 +24,7 @@ body {
     padding: 20px;
 }
 
-/* Estilo para el formulario */
+/* Estilo para el formulario de contactos de la Death Note */
 form {
     background-color: #ffffff;
     padding: 20px;
@@ -58,7 +58,7 @@ form button:hover {
     background-color: var(--primary-hover);
 }
 
-/* Estilo para las tarjetas de contacto */
+/* Estilo para las tarjetas de contacto de la de la Death Note */
 .contact-card {
     background-color: #ffffff;
     border: 1px solid #ced4da;
@@ -73,7 +73,7 @@ form button:hover {
 }
 
 .contact-card:hover {
-    transform: translateY(-5px); /* Efecto de elevación */
+    transform: translateY(-5px);
 }
 
 .contact-card h5 {
