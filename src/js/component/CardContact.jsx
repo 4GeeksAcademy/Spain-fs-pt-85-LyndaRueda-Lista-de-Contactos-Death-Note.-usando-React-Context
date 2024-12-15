@@ -14,7 +14,6 @@ const CardContact = ({ contact }) => {
   return (
     <li className="list-group-item d-flex align-items-center">
       <div className="d-flex align-items-center w-100">
-        {/* Imagen */}
         <div className="col-md-2 d-flex justify-content-center">
           <img
             className="rounded-circle"
